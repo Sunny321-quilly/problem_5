@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login — Scholarship Monitoring System</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="login-page">
+<div class="login-box">
+  <h1>Scholarship Monitoring System</h1>
+  <p class="sub">Student Scholarship Monitoring and Academic Compliance System</p>
+  <div id="alert" class="alert"></div>
+
+  <form id="login-form">
+    <label>Email</label>
+    <input type="email" id="email" required autocomplete="username">
+    <label>Password</label>
+    <input type="password" id="password" required autocomplete="current-password">
+    <div class="actions"><button class="btn" style="width:100%">Sign In</button></div>
+  </form>
+
+  <div class="card mt">
+    <strong>Demo accounts</strong>
+    <p class="muted">No sign-up &mdash; accounts are provisioned by the registrar (FR-14).</p>
+    <div class="actions">
+      <button class="btn secondary small" type="button" data-demo="admin">Admin</button>
+      <button class="btn secondary small" type="button" data-demo="staff">Staff</button>
+      <button class="btn secondary small" type="button" data-demo="scholar1">Scholar 1</button>
+      <button class="btn secondary small" type="button" data-demo="scholar2">Scholar 2</button>
+    </div>
+  </div>
+
+  <p class="muted mt">Unauthenticated users cannot open protected pages (NFR-01).</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/client.js"></script>
+<script>
+const alertEl = document.getElementById('alert');
+if (!sb) showAlert(alertEl, CONFIG_MSG, 'error');
+const loginForm = document.getElementById('login-form');
+
+(async () => {
+  if (!sb) return;
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) window.location.replace('index.html');
+})();
+
+async function signIn(email, password) {
+  hideAlert(alertEl);
+  if (!sb) return showAlert(alertEl, CONFIG_MSG, 'error');
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) return showAlert(alertEl, error.message, 'error');
+  window.location.href = 'index.html';
+}
+
+loginForm.onsubmit = (e) => {
+  e.preventDefault();
+  signIn(document.getElementById('email').value.trim(), document.getElementById('password').value);
+};
+
+document.querySelectorAll('[data-demo]').forEach(btn => {
+  btn.onclick = () => {
+    const demo = DEMO_ACCOUNTS[btn.dataset.demo];
+    document.getElementById('email').value = demo.email;
+    document.getElementById('password').value = demo.password;
+    signIn(demo.email, demo.password);
+  };
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scholarship Programs — Scholarship Monitoring System</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="brand">ScholarTrack</div>
+  <div class="links">
+    <a href="index.html">Dashboard</a>
+    <a href="scholars.html">Scholars</a>
+    <a href="programs.html">Scholarship Programs</a>
+    <a href="submissions.html">Grade Submissions</a>
+    <a href="compliance.html">Compliance</a>
+  </div>
+  <div class="user"><span id="user-name"></span><button id="logout-btn" class="btn small secondary">Logout</button></div>
+</nav>
+
+<div class="wrap">
+  <h1>Scholarship Programs &amp; Requirements</h1>
+  <p class="sub">Each program defines its own Required GWA, Minimum Units and failing-grade policy — FR-03, BR-02</p>
+  <div id="alert" class="alert"></div>
+
+  <div class="card needs-staff">
+    <h2 id="form-title">Create Scholarship Program</h2>
+    <form id="program-form">
+      <div class="row">
+        <div><label>Program Name *</label><input id="p-name" required placeholder="e.g. Athletic Scholarship"></div>
+        <div><label>Required GWA (max allowed) * </label><input id="p-gwa" type="number" step="0.01" min="1" max="5" required placeholder="1.75"></div>
+        <div><label>Minimum Units *</label><input id="p-units" type="number" min="0" required placeholder="12"></div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Allow Failing Grade?</label>
+          <select id="p-fail"><option value="false">No — any failed subject is a deficiency</option><option value="true">Yes — failed subjects allowed</option></select>
+        </div>
+        <div>
+          <label>Status</label>
+          <select id="p-active"><option value="true">Active</option><option value="false">Inactive</option></select>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="submit">Save Program</button>
+        <button class="btn secondary hidden" type="button" id="btn-cancel">Cancel Edit</button>
+      </div>
+      <p class="muted">Rule direction (institution): 1.00 is the highest grade, 5.00 is failing. A submission is compliant when <b>GWA ≤ Required GWA</b>.</p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Configured Programs</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Program</th><th>Required GWA</th><th>Min Units</th><th>Failing Grades</th><th>Status</th><th></th></tr></thead>
+        <tbody id="program-rows"><tr><td colspan="6" class="muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/client.js"></script>
+<script src="js/programs.js"></script>
+</body>
+</html>

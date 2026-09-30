@@ -1,0 +1,56 @@
+%% ERD - Student Scholarship Monitoring and Academic Compliance System
+erDiagram
+    PROFILES ||--o{ SCHOLARS : "monitors (staff)"
+    SCHOLARSHIP_PROGRAMS ||--o{ SCHOLARS : "assigned to"
+    SCHOLARS ||--o{ GRADE_SUBMISSIONS : "submits"
+    GRADE_SUBMISSIONS ||--o| COMPLIANCE_EVALUATIONS : "evaluated as"
+    PROFILES ||--o{ GRADE_SUBMISSIONS : "verifies"
+    PROFILES ||--o{ COMPLIANCE_EVALUATIONS : "evaluates"
+
+    PROFILES {
+        uuid id PK
+        text full_name
+        text role "admin / staff / scholar"
+        timestamptz created_at
+    }
+    SCHOLARSHIP_PROGRAMS {
+        bigint id PK
+        text program_name
+        numeric required_gwa "max GWA allowed"
+        int min_units
+        boolean allow_failing_grade
+        boolean active
+    }
+    SCHOLARS {
+        bigint id PK
+        text student_id UK
+        text full_name
+        text degree_program
+        text year_level
+        bigint scholarship_id FK
+        text status
+    }
+    GRADE_SUBMISSIONS {
+        bigint id PK
+        bigint scholar_id FK
+        text academic_year
+        text semester
+        numeric gwa
+        int units_enrolled
+        int failed_subjects
+        int incomplete_subjects
+        text submission_status "Pending / Verified / Returned"
+        uuid verified_by FK
+        timestamptz submitted_at
+        timestamptz verified_at
+    }
+    COMPLIANCE_EVALUATIONS {
+        bigint id PK
+        bigint scholar_id FK
+        bigint submission_id FK UK
+        text academic_year
+        text semester
+        text result "Compliant / With Deficiency"
+        jsonb reasons
+        timestamptz evaluated_at
+    }

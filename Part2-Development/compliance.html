@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance — Scholarship Monitoring System</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="brand">ScholarTrack</div>
+  <div class="links">
+    <a href="index.html">Dashboard</a>
+    <a href="scholars.html">Scholars</a>
+    <a href="programs.html">Scholarship Programs</a>
+    <a href="submissions.html">Grade Submissions</a>
+    <a href="compliance.html">Compliance</a>
+  </div>
+  <div class="user"><span id="user-name"></span><button id="logout-btn" class="btn small secondary">Logout</button></div>
+</nav>
+
+<div class="wrap">
+  <h1>Compliance Monitoring</h1>
+  <p class="sub">FR-07, FR-08, FR-09, FR-13 — verified submissions evaluated against each program's rules (BR-06, BR-07)</p>
+  <div id="alert" class="alert"></div>
+
+  <div class="card">
+    <div class="row">
+      <div><label>Filter by Result</label>
+        <select id="q-result"><option value="">All Results</option><option>Compliant</option><option>With Deficiency</option></select>
+      </div>
+      <div><label>Filter by Scholarship Program</label><select id="q-program"><option value="">All Programs</option></select></div>
+      <div style="flex:2"><label>Search Student ID / Name</label><input id="q-search" placeholder="Type to search…"></div>
+      <div><label>&nbsp;</label><button class="btn secondary" id="btn-export">Export CSV Report</button></div>
+    </div>
+
+    <div class="grid g3 mt">
+      <div class="tile ok"><div class="num" id="k-ok">0</div><div class="lbl">Compliant Records</div></div>
+      <div class="tile bad"><div class="num" id="k-bad">0</div><div class="lbl">Deficient Records</div></div>
+      <div class="tile info"><div class="num" id="k-all">0</div><div class="lbl">Evaluations Shown</div></div>
+    </div>
+
+    <div class="table-wrap mt">
+      <table>
+        <thead><tr>
+          <th>Scholar</th><th>Program</th><th>Term</th><th>GWA / Units</th><th>Failed / Inc</th>
+          <th>Result</th><th>Deficiency Reasons</th><th>Evaluated</th>
+        </tr></thead>
+        <tbody id="comp-rows"><tr><td colspan="8" class="muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Scholar Status Board (FR-09)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Student ID</th><th>Name</th><th>Program</th><th>Status</th></tr></thead>
+        <tbody id="status-rows"><tr><td colspan="4" class="muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/client.js"></script>
+<script src="js/compliance.js"></script>
+</body>
+</html>

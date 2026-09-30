@@ -1,0 +1,66 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+title Student Scholarship Monitoring and Academic Compliance System - Use Case Diagram
+
+actor "Scholar" as S
+actor "Scholarship Staff" as ST
+actor "Scholarship Coordinator" as CO
+actor "System Administrator" as AD
+
+rectangle "Student Scholarship Monitoring and Academic Compliance System" {
+  usecase "Login" as UC01
+  usecase "Logout" as UC17
+  usecase "Register Scholar" as UC02
+  usecase "Assign Scholarship" as UC03
+  usecase "Configure Scholarship Requirements" as UC04
+  usecase "View Requirements" as UC05
+  usecase "Submit Grades" as UC06
+  usecase "Verify Grade Submission" as UC07
+  usecase "Evaluate Academic Compliance" as UC08
+  usecase "Record Deficiency" as UC09
+  usecase "View Deficiency" as UC10
+  usecase "Update Scholar Status" as UC11
+  usecase "Process Scholarship Renewal" as UC12
+  usecase "Search Scholar" as UC13
+  usecase "Filter Scholars" as UC14
+  usecase "Generate Compliance Report" as UC15
+  usecase "View Dashboard" as UC16
+
+  UC02 .> UC01 : <<include>>
+  UC06 .> UC01 : <<include>>
+  UC07 .> UC01 : <<include>>
+  UC08 .> UC05 : <<include>>
+  UC12 .> UC08 : <<include>>
+  UC15 .> UC08 : <<include>>
+
+  UC09 .> UC08 : <<extend>>
+  UC11 .> UC08 : <<extend>>
+  UC14 .> UC13 : <<extend>>
+}
+
+S --> UC01
+S --> UC06
+S --> UC10
+S --> UC16
+
+ST --> UC01
+ST --> UC02
+ST --> UC03
+ST --> UC07
+ST --> UC13
+ST --> UC14
+ST --> UC16
+
+CO --> UC04
+CO --> UC05
+CO --> UC08
+CO --> UC09
+CO --> UC11
+CO --> UC12
+CO --> UC15
+CO --> UC16
+
+AD --> UC01
+AD --> UC17
+@enduml

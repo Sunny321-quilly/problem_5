@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — Scholarship Monitoring System</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="brand">ScholarTrack</div>
+  <div class="links">
+    <a href="index.html">Dashboard</a>
+    <a href="scholars.html">Scholars</a>
+    <a href="programs.html">Scholarship Programs</a>
+    <a href="submissions.html">Grade Submissions</a>
+    <a href="compliance.html">Compliance</a>
+  </div>
+  <div class="user"><span id="user-name"></span><button id="logout-btn" class="btn small secondary">Logout</button></div>
+</nav>
+
+<div class="wrap">
+  <h1>Compliance Dashboard</h1>
+  <p class="sub">Live counts from the database (FR-10, FR-13)</p>
+  <div id="alert" class="alert"></div>
+
+  <div class="grid g5">
+    <div class="tile"><div class="num" id="c-total">–</div><div class="lbl">Total Scholars</div></div>
+    <div class="tile warn"><div class="num" id="c-pending">–</div><div class="lbl">Pending Submissions</div></div>
+    <div class="tile info"><div class="num" id="c-verified">–</div><div class="lbl">Verified Submissions</div></div>
+    <div class="tile ok"><div class="num" id="c-compliant">–</div><div class="lbl">Compliant Scholars</div></div>
+    <div class="tile bad"><div class="num" id="c-deficient">–</div><div class="lbl">With Deficiency</div></div>
+  </div>
+
+  <div class="grid g2 mt">
+    <div class="card">
+      <h2>Pending Verification Queue</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Scholar</th><th>Term</th><th>GWA</th><th>Submitted</th></tr></thead>
+          <tbody id="pending-rows"><tr><td colspan="4" class="muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="muted">Full queue: <a href="submissions.html">Grade Submissions</a></p>
+    </div>
+    <div class="card">
+      <h2>Scholars by Status</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Status</th><th class="right">Count</th></tr></thead>
+          <tbody id="status-rows"><tr><td colspan="2" class="muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="muted">REQUIREMENT → USE CASE → RECORD → ACTION → RULE → RESULT → TEST</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/client.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

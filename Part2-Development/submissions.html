@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade Submissions — Scholarship Monitoring System</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="brand">ScholarTrack</div>
+  <div class="links">
+    <a href="index.html">Dashboard</a>
+    <a href="scholars.html">Scholars</a>
+    <a href="programs.html">Scholarship Programs</a>
+    <a href="submissions.html">Grade Submissions</a>
+    <a href="compliance.html">Compliance</a>
+  </div>
+  <div class="user"><span id="user-name"></span><button id="logout-btn" class="btn small secondary">Logout</button></div>
+</nav>
+
+<div class="wrap">
+  <h1>Grade Submission &amp; Verification</h1>
+  <p class="sub">FR-04, FR-05, FR-06 — submissions start as <b>Pending</b>; only staff may verify (BR-04, BR-05)</p>
+  <div id="alert" class="alert"></div>
+
+  <div class="card needs-staff">
+    <h2>Create Semester Grade Submission</h2>
+    <form id="submission-form">
+      <div class="row">
+        <div style="flex:2"><label>Scholar *</label><select id="s-scholar" required></select></div>
+        <div><label>Academic Year * <span class="muted">(FR-05)</span></label>
+          <select id="s-year" required>
+            <option>2025-2026</option><option>2026-2027</option><option>2027-2028</option>
+          </select>
+        </div>
+        <div><label>Semester *</label>
+          <select id="s-sem" required><option>First Semester</option><option>Second Semester</option><option>Summer</option></select>
+        </div>
+      </div>
+      <div class="row">
+        <div><label>GWA * (1.00 – 5.00)</label><input id="s-gwa" type="number" step="0.01" min="1" max="5" required placeholder="1.45"></div>
+        <div><label>Units Enrolled *</label><input id="s-units" type="number" min="0" required placeholder="24"></div>
+        <div><label>Failed Subjects</label><input id="s-failed" type="number" min="0" value="0" required></div>
+        <div><label>Incomplete Subjects</label><input id="s-inc" type="number" min="0" value="0" required></div>
+      </div>
+      <div class="actions"><button class="btn" type="submit">Save Submission (Pending)</button></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Submission Queue</h2>
+    <div class="row">
+      <div><label>Filter Status</label>
+        <select id="q-status">
+          <option value="">All</option><option>Pending</option><option>Verified</option><option>Returned</option>
+        </select>
+      </div>
+      <div style="flex:2"><label>Search Scholar</label><input id="q-search" placeholder="Student ID or name…"></div>
+    </div>
+    <div class="table-wrap mt">
+      <table>
+        <thead><tr>
+          <th>Scholar</th><th>Term</th><th>GWA</th><th>Units</th><th>Failed / Inc</th>
+          <th>Status</th><th>Evaluation</th><th class="needs-staff">Action</th>
+        </tr></thead>
+        <tbody id="sub-rows"><tr><td colspan="8" class="muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/client.js"></script>
+<script src="js/submissions.js"></script>
+</body>
+</html>

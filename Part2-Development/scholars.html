@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scholars — Scholarship Monitoring System</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="brand">ScholarTrack</div>
+  <div class="links">
+    <a href="index.html">Dashboard</a>
+    <a href="scholars.html">Scholars</a>
+    <a href="programs.html">Scholarship Programs</a>
+    <a href="submissions.html">Grade Submissions</a>
+    <a href="compliance.html">Compliance</a>
+  </div>
+  <div class="user"><span id="user-name"></span><button id="logout-btn" class="btn small secondary">Logout</button></div>
+</nav>
+
+<div class="wrap">
+  <h1>Scholar Management</h1>
+  <p class="sub">Create, read, update scholar records — FR-01, FR-02, FR-11, FR-12</p>
+  <div id="alert" class="alert"></div>
+
+  <div class="card needs-staff">
+    <h2 id="form-title">Register Scholar</h2>
+    <form id="scholar-form">
+      <div class="row">
+        <div><label>Student ID *</label><input id="f-student-id" placeholder="e.g. 2022-00123" required></div>
+        <div><label>Full Name *</label><input id="f-name" required></div>
+        <div><label>Degree Program *</label><input id="f-degree" placeholder="BS Information Technology" required></div>
+      </div>
+      <div class="row">
+        <div><label>Year Level *</label>
+          <select id="f-year" required>
+            <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option><option>5th Year</option>
+          </select>
+        </div>
+        <div><label>Scholarship Program * (BR-01)</label><select id="f-program" required></select></div>
+        <div><label>Status</label><select id="f-status" disabled></select></div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="submit" id="btn-save">Save Scholar</button>
+        <button class="btn secondary hidden" type="button" id="btn-cancel">Cancel Edit</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Scholar List</h2>
+    <div class="row">
+      <div style="flex:2"><label>Search by Student ID or Name</label><input id="q-search" placeholder="Type to search…"></div>
+      <div><label>Filter: Scholarship Program</label><select id="q-program"><option value="">All Programs</option></select></div>
+      <div><label>Filter: Status</label><select id="q-status"><option value="">All Statuses</option></select></div>
+    </div>
+    <div class="table-wrap mt">
+      <table>
+        <thead><tr>
+          <th>Student ID</th><th>Name</th><th>Degree / Year</th><th>Scholarship</th><th>Status</th><th></th>
+        </tr></thead>
+        <tbody id="scholar-rows"><tr><td colspan="6" class="muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <p class="muted" id="result-count"></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/client.js"></script>
+<script src="js/scholars.js"></script>
+</body>
+</html>
